@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: krytoydaniil
+Build-Jdk: Oracle OpenJDK version 17.0.8
+Implementation-Title: web-application-pizzeria
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: ru.grishenokdaniil
+Main-Class: ${start-class}
+
