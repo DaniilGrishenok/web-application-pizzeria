@@ -2,7 +2,7 @@ package ru.grishenokdaniil.webapplicationpizzeria.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.grishenokdaniil.webapplicationpizzeria.model.ProductEntity;
+import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.Product;
 import ru.grishenokdaniil.webapplicationpizzeria.repository.ProductRepository;
 
 import java.util.List;
@@ -18,16 +18,16 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductEntity> getAllProducts() {
-        return (List<ProductEntity>) productRepository.findAll();
+    public List<Product> getAllProducts() {
+        return (List<Product>) productRepository.findAll();
     }
 
-    public Optional<ProductEntity> getProductById(Long id) {
+    public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
     }
 
-    public void updateProduct(Long id, ProductEntity updatedProduct) {
-        Optional<ProductEntity> existingProductOptional = productRepository.findById(id);
+    public void updateProduct(Long id, Product updatedProduct) {
+        Optional<Product> existingProductOptional = productRepository.findById(id);
 
         existingProductOptional.ifPresent(existingProduct -> {
             // Обновляем данные продукта
@@ -45,7 +45,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public void addProduct(ProductEntity product) {
+    public void addProduct(Product product) {
         productRepository.save(product);
     }
 }

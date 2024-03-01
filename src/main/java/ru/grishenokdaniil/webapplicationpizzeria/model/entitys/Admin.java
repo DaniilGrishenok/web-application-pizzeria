@@ -1,14 +1,14 @@
-package ru.grishenokdaniil.webapplicationpizzeria.model;
+package ru.grishenokdaniil.webapplicationpizzeria.model.entitys;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity(name = "admins")
-public class AdminEntity {
+public class Admin {
 
     @Id
     private long adminID;
@@ -16,11 +16,11 @@ public class AdminEntity {
     private String login;
     private String password;
 
-    public AdminEntity() {
+    public Admin() {
 
     }
 
-    public AdminEntity(long adminID, String login, String password) {
+    public Admin(long adminID, String login, String password) {
         this.adminID = adminID;
         this.login = login;
         this.password = password;

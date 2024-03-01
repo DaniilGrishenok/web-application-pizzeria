@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import ru.grishenokdaniil.webapplicationpizzeria.model.ProductEntity;
+import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.Product;
 import ru.grishenokdaniil.webapplicationpizzeria.repository.ProductRepository;
 import ru.grishenokdaniil.webapplicationpizzeria.service.ProductService;
 import ru.grishenokdaniil.webapplicationpizzeria.service.ProductType;
@@ -31,7 +30,7 @@ public class ProductsController {
 
     @GetMapping("/admin/product")
     public String showProducts(Model model) {
-        List<ProductEntity> products = productService.getAllProducts();
+        List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
 
         return "product";
@@ -44,20 +43,20 @@ public class ProductsController {
     }
     @GetMapping("/admin/product/edit/{id}")
     public String showEditProductForm(@PathVariable Long id, Model model) {
-        Optional<ProductEntity> productOptional = productService.getProductById(id);
+        Optional<Product> productOptional = productService.getProductById(id);
         productOptional.ifPresent(product -> model.addAttribute("product", product));
 
-        return "editProduct";
+            return "editProduct";
     }
 
 
     @PostMapping("/admin/product/edit/{id}")
-    public String editProduct(@PathVariable Long id, @ModelAttribute ProductEntity updatedProduct) {
+    public String editProduct(@PathVariable Long id, @ModelAttribute Product updatedProduct) {
         productService.updateProduct(id, updatedProduct);
         return "redirect:/admin/product";
     }
     @PostMapping("/admin/product")
-    public String addProduct(@ModelAttribute("product") ProductEntity product,
+    public String addProduct(@ModelAttribute("product") Product product,
                              Model model) {
         productRepository.save(product);
 

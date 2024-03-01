@@ -1,6 +1,6 @@
-package ru.grishenokdaniil.webapplicationpizzeria.model;
+package ru.grishenokdaniil.webapplicationpizzeria.model.entitys;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import ru.grishenokdaniil.webapplicationpizzeria.service.ProductType;
@@ -8,7 +8,7 @@ import ru.grishenokdaniil.webapplicationpizzeria.service.ProductType;
 @Getter
 @Setter
 @Entity(name = "Products")
-public class ProductEntity {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class ProductEntity {
     private ProductType typeOfProduct;
     private double productPrice;
 
-    public ProductEntity( String productName, String productDescription, ProductType typeOfProduct, double productPrice, String imageUrl) {
+    public Product(String productName, String productDescription, ProductType typeOfProduct, double productPrice, String imageUrl) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.typeOfProduct = typeOfProduct;
@@ -28,7 +28,7 @@ public class ProductEntity {
         this.imageUrl= imageUrl;
     }
 
-    public ProductEntity() {
+    public Product() {
 
     }
 
