@@ -3,7 +3,10 @@ package ru.grishenokdaniil.webapplicationpizzeria.model.entitys;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 import ru.grishenokdaniil.webapplicationpizzeria.service.ProductType;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,7 +22,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductType typeOfProduct;
     private double productPrice;
-
+    private LocalDateTime dateOfCreated;
     public Product(String productName, String productDescription, ProductType typeOfProduct, double productPrice, String imageUrl) {
         this.productName = productName;
         this.productDescription = productDescription;
@@ -28,6 +31,10 @@ public class Product {
         this.imageUrl= imageUrl;
     }
 
+    @PrePersist
+    public void init(){
+        dateOfCreated = LocalDateTime.now();
+    }
     public Product() {
 
     }

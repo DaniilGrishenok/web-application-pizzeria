@@ -15,12 +15,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-    /* Ваши стили здесь */
     .login-form {
       max-width: 400px;
       margin: auto;
       margin-top: 50px;
-      display: none; /* Начально скрываем форму */
+      display: none;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -79,11 +78,17 @@
             </form>
             <div class="d-flex">
                 <a class="nav-link" th:href="@{/basket}">Корзина</a>
-                        <a class="nav-link" th:href="@{/userAccount}">Account</a>
-                        <a class="nav-link" th:href="@{/logout}">Logout</a>
-                <a class="nav-link" th:href="@{/login}">Login</a>
+
+                <div th:if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+                    <a class="nav-link" th:href="@{/userAccount}">Account</a>
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </div>
+
+                <div th:unless="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
                 </div>
             </div>
+
 
 
         </div>
@@ -100,6 +105,7 @@
 
                 <div class="card-body">
                     <h5 class="card-title" th:text="${product.productName}"></h5>
+                    <img class="card-img-top" th:src="${product.getimageUrl}" alt="Product Image">
                     <p class="card-text" th:text="${product.productDescription}"></p>
                     <p class="card-text" th:text="'Цена: ' + ${product.productPrice}"></p>
                     <a href="#" class="btn btn-primary">Добавить в корзину</a>

@@ -25,10 +25,7 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String home(Model model, Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
-        if (authentication != null) {
-            new SecurityContextLogoutHandler().logout(request, response, authentication);
-        }
+    public String home(Model model) {
         List<Product> products = (List<Product>) productService.getAllProducts();
         model.addAttribute("products", products);
         return "index";

@@ -9,12 +9,12 @@
 
 <h2>User Information</h2>
 
-<div th:if="${principal != null}">
-    <p th:text="'Username: ' + ${principal.username}"></p>
+<div th:if="${authenticated}">
+    <p th:text="'Username: ' + ${username}"></p>
     <p th:text="'Authorities: ' + ${authorities}"></p>
-    <p th:text="'Is authenticated: ' + ${authenticated}"></p>
+    <p th:text="'Is authenticated: true'"></p>
 </div>
-<div th:unless="${principal != null}">
+<div th:unless="${authenticated}">
     <p>User not authenticated</p>
 </div>
 

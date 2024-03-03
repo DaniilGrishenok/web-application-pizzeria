@@ -38,7 +38,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
     private LocalDateTime dateOfCreated;
-
+    private boolean isVerifiedMail;
     @PrePersist
     private void init() {
         dateOfCreated = LocalDateTime.now();

@@ -3,9 +3,9 @@ package ru.grishenokdaniil.webapplicationpizzeria.model.enams;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-        USER,
-        ADMIN,
-        MANAGER;
+        ROLE_USER,
+        ROLE_ADMIN,
+        ROLE_MANAGER;
 
         @Override
         public String getAuthority() {

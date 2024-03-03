@@ -2,6 +2,7 @@ package ru.grishenokdaniil.webapplicationpizzeria.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -62,24 +63,24 @@ public class RegistrationController {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        return "redirect:/login?logout"; // You can customize the redirect URL after logout
+        return "redirect:/";
     }
-    @GetMapping("/yourEndpoint")
-    public String yourEndpoint(Model model) {
+    @GetMapping("/debug")
+    public String debug(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // Вывод отладочной информации в консоль
-        System.out.println("Principal: " + authentication.getPrincipal());
-        System.out.println("Authorities: " + authentication.getAuthorities());
-        System.out.println("Is authenticated: " + authentication.isAuthenticated());
-
-        // Передача информации в модель для отображения в представлении (если необходимо)
-        model.addAttribute("principal", authentication.getPrincipal());
-        model.addAttribute("authorities", authentication.getAuthorities());
-        model.addAttribute("authenticated", authentication.isAuthenticated());
-
-        return "yourView"; // Замените на имя вашего представления
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            // Если пользователь не анонимный, добавляем информацию о нем в модель
+            model.addAttribute("username", authentication.getName());
+            model.addAttribute("authorities", authentication.getAuthorities());
+            model.addAttribute("authenticated", true);
+        } else {
+            // Если пользователь анонимный или не аутентифицирован, добавляем информацию об этом в модель
+            model.addAttribute("authenticated", false);
+        }
+        return "debug";
     }
+
     @PostMapping("/registration")
     public String createUser(User user, Model model) {
         if(!userService.createUser(user)){

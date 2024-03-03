@@ -24,25 +24,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/", "/index", "/registration")
-                .permitAll()
-                .anyRequest().authenticated()
+                    .authorizeRequests()
+                    .antMatchers("/", "/index", "/registration", "/debug")
+                    .permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/")
+                    .permitAll()
                 .and()
-                .logout() // Configure logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/") // Redirect to home page after logout
-                .invalidateHttpSession(true) // Invalidate the session
-                .deleteCookies("JSESSIONID") // Remove session cookie
-                .permitAll(); // Allow everyone to access the logout URL
+                    .logout() // Configure logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/") // Redirect to home page after logout
+                    .invalidateHttpSession(true) // Invalidate the session
+                    .deleteCookies("JSESSIONID") // Remove session cookie
+                    .permitAll(); // Allow everyone to access the logout URL
     }
 
     @Override

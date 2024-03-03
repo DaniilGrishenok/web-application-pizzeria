@@ -146,6 +146,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Форма для добавления новой позиции -->
+                    <!-- Форма для добавления новой позиции -->
                     <form th:action="@{/admin/product}" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="productName" class="form-label">Название</label>
@@ -161,12 +162,15 @@
                                 <option th:each="type : ${productTypes}" th:value="${type}" th:text="${#strings.capitalize(type.toString().toLowerCase())}"></option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label for="productPrice" class="form-label">Цена</label>
                             <input type="number" class="form-control" id="productPrice" name="productPrice" required>
                         </div>
-
+                        <!-- Добавление поля для загрузки файла -->
+                        <div class="mb-3">
+                            <label for="productImage" class="form-label">Фото продукта</label>
+                            <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required>
+                        </div>
                         <button type="submit" class="btn btn-primary">Добавить</button>
                     </form>
                 </div>
