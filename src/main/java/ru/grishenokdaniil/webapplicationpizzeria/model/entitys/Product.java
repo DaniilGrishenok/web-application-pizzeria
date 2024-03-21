@@ -3,8 +3,7 @@ package ru.grishenokdaniil.webapplicationpizzeria.model.entitys;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import ru.grishenokdaniil.webapplicationpizzeria.service.ProductType;
+import ru.grishenokdaniil.webapplicationpizzeria.model.enams.ProductType;
 
 import java.time.LocalDateTime;
 

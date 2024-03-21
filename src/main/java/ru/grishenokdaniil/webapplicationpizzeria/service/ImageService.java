@@ -1,6 +1,5 @@
-package ru.grishenokdaniil.webapplicationpizzeria.config;
+package ru.grishenokdaniil.webapplicationpizzeria.service;
 
-import com.google.auth.Credentials;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;

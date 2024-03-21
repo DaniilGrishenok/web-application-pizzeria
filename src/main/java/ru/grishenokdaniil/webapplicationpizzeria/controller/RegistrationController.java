@@ -34,19 +34,6 @@ public class RegistrationController {
         return "login";
     }
 
-//    @PostMapping("/login")
-////    public String loginPost(@RequestParam String username,
-//                            @RequestParam String password,
-//                            Model model, HttpServletRequest request) {
-//        try {
-//            request.login(username, password);
-//            model.addAttribute("authenticated", true);
-//            return "redirect:/userAccount"; // Или другой URL для страницы аккаунта
-//        } catch (ServletException e) {
-//            model.addAttribute("error", "Invalid username or password");
-//            return "login";
-//        }
-//    }
 
     @GetMapping("/registration")
     public String registration() {
@@ -91,5 +78,18 @@ public class RegistrationController {
 
         return "redirect:/login";
     }
+    @PostMapping("/registrationAdmin")
+    public String createAdmin(User user, Model model) {
+        if(!userService.createAdmin(user)){
+            model.addAttribute("error message", "Пользователь с email: "+
+                    user.getEmail() + " уже существует! ");
+            return "registrationAdmin";
+        }
 
+        return "redirect:/admin";
+    }
+    @GetMapping("/registrationAdmin")
+    public String registrationAdmin() {
+        return "registrationAdmin";
+    }
 }

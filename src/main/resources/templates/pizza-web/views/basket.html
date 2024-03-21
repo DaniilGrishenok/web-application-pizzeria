@@ -13,41 +13,43 @@
 <div class="container mt-5">
     <h2 class="mb-4">Корзина</h2>
 
-    <div class="card mb-3">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="https://via.placeholder.com/150" alt="Товар" class="img-fluid">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">Пример товара 1</h5>
-                    <p class="card-text">Описание товара. Может быть здесь.</p>
-                    <p class="card-text"><strong>Цена: $19.99</strong></p>
-                    <button class="btn btn-danger">Удалить из корзины</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card mb-3">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="https://via.placeholder.com/150" alt="Товар" class="img-fluid">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">Пример товара 2</h5>
-                    <p class="card-text">Описание товара. Может быть здесь.</p>
-                    <p class="card-text"><strong>Цена: $24.99</strong></p>
-                    <button class="btn btn-danger">Удалить из корзины</button>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Описание</th>
+                <th>Цена</th>
+                <th></th> <!-- Пустая ячейка для кнопки удаления -->
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Thymeleaf цикл для отображения продуктов в корзине -->
+            <th:block th:if="${not #lists.isEmpty(products)}">
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.productName}"></td>
+                    <td th:text="${product.productDescription}"></td>
+                    <td th:text="${product.productPrice}"></td>
+                    <td>
+                        <!-- Кнопка для удаления продукта из корзины -->
+                        <form th:action="@{'/basket/remove/' + ${product.productID}}" method="post">
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            </th:block>
+            <th:block th:if="${#lists.isEmpty(products)}">
+                <tr>
+                    <td colspan="4">Ваша корзина пуста</td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
     </div>
 
     <div class="text-end">
-        <p><strong>Итого: $44.98</strong></p>
-        <button class="btn btn-primary">Оформить заказ</button>
+        <p><strong>Итого: </strong></p>
+        <a href="#" class="btn btn-primary">Оформить заказ</a>
     </div>
 </div>
 

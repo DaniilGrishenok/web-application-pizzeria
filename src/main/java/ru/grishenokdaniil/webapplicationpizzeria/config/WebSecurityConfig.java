@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import ru.grishenokdaniil.webapplicationpizzeria.service.CustomUserDetailService;
 
 
@@ -24,26 +25,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
-                    .authorizeRequests()
-                    .antMatchers("/", "/index", "/registration", "/debug")
-                    .permitAll()
-                    .anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/", "/index", "/registration", "/debug", "/registrationAdmin").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN") // Разрешить доступ к /admin/** только администраторам
+                .anyRequest().authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/")
-                    .permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll()
                 .and()
-                    .logout() // Configure logout
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/") // Redirect to home page after logout
-                    .invalidateHttpSession(true) // Invalidate the session
-                    .deleteCookies("JSESSIONID") // Remove session cookie
-                    .permitAll(); // Allow everyone to access the logout URL
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/basket/add/**");
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

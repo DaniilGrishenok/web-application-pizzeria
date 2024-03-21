@@ -32,7 +32,19 @@ public class UserService {
 
         return true;
     }
+    public boolean createAdmin(User user){
+        String email = user.getEmail();
+        if(userRepository.findByEmail(user.getEmail())!= null ){
+            return false;
+        }
+        user.setActive(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(Role.ROLE_ADMIN);
+        userRepository.save(user);
+        log.info("Saving new Admin with email: {}", email);
 
+        return true;
+    }
 
 
 }
