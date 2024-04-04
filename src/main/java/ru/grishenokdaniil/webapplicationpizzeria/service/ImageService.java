@@ -21,7 +21,7 @@ import java.util.UUID;
 public class ImageService {
 
     private String uploadFile(File file, String fileName) throws IOException {
-        BlobId blobId = BlobId.of("pizzawebapp-267bb.appspot.com", fileName); // Используйте ваше значение bucket-name
+        BlobId blobId = BlobId.of("pizzawebapp-267bb.appspot.com", fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
 
         // Путь к файлу с ключом сервисного аккаунта Firebase

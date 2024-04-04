@@ -2,14 +2,10 @@ package ru.grishenokdaniil.webapplicationpizzeria.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.grishenokdaniil.webapplicationpizzeria.model.enams.Role;
 import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.User;
-import ru.grishenokdaniil.webapplicationpizzeria.repository.RoleRepository;
 import ru.grishenokdaniil.webapplicationpizzeria.repository.UserRepository;
 
 @Service

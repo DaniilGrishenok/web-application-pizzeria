@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Entity(name = "baskets")
@@ -32,15 +33,19 @@ public class Basket {
     }
 
     public void addItem(Product product) {
-        if (basketItems == null) {
-            basketItems = new ArrayList<>();
+       Optional<BasketItem> existingItemOptional = basketItems.stream()
+               .filter(item ->item.getProduct().getProductID().equals(product.getProductID()))
+               .findFirst();
+        if (existingItemOptional.isPresent()) {
+            BasketItem existingItem = existingItemOptional.get();
+            existingItem.setQuantity(existingItem.getQuantity() + 1);
+        } else {
+            BasketItem basketItem = new BasketItem();
+            basketItem.setProduct(product);
+            basketItem.setBasket(this);
+            basketItem.setQuantity(1);
+            basketItems.add(basketItem);
         }
-
-        BasketItem basketItem = new BasketItem();
-        basketItem.setProduct(product);
-        basketItem.setBasket(this);
-
-        basketItems.add(basketItem);
     }
 
     public List<Product> getProducts() {
@@ -49,5 +54,18 @@ public class Basket {
             products.add(item.getProduct());
         }
         return products;
+    }
+    public void removeProductById(Long productId) {
+        Optional<BasketItem> itemToRemove = basketItems.stream()
+                .filter(item -> item.getProduct().getProductID().equals(productId))
+                .findFirst();
+        itemToRemove.ifPresent(item -> {
+            int newQuantity = item.getQuantity() - 1;
+            if (newQuantity <= 0) {
+                basketItems.remove(item);
+            } else {
+                item.setQuantity(newQuantity);
+            }
+        });
     }
 }

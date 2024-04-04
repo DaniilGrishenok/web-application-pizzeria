@@ -20,7 +20,7 @@ public class BasketItem {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    public Product product;
 
     private int quantity;
 

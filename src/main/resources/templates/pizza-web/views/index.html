@@ -79,12 +79,12 @@
             <div class="d-flex">
                 <a class="nav-link" th:href="@{/basket}">Корзина</a>
 
-                <div th:if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+                <div th:if="${#httpServletRequest.isUserInRole('ROLE_USER') || #httpServletRequest.isUserInRole('ROLE_ADMIN') }">
                     <a class="nav-link" th:href="@{/userAccount}">Account</a>
                     <a class="nav-link" th:href="@{/logout}">Logout</a>
                 </div>
 
-                <div th:unless="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+                <div th:unless="${#httpServletRequest.isUserInRole('ROLE_USER') || #httpServletRequest.isUserInRole('ROLE_ADMIN') }">
                     <a class="nav-link" th:href="@{/login}">Login</a>
                 </div>
             </div>

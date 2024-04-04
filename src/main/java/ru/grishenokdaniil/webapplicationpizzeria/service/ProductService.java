@@ -51,7 +51,13 @@ public class ProductService {
             productRepository.delete(product);
         }
     }
-
+    public double calculateTotalAmount(List<BasketItem> basketItems) {
+        double totalAmount = 0.0;
+        for (BasketItem item : basketItems) {
+            totalAmount += item.product.getProductPrice()* item.getQuantity();
+        }
+        return totalAmount;
+    }
     public void addProduct(Product product) {
         productRepository.save(product);
     }
