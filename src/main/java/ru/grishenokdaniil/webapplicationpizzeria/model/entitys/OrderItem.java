@@ -1,31 +1,31 @@
 package ru.grishenokdaniil.webapplicationpizzeria.model.entitys;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@Entity(name = "basket_items")
-public class BasketItem {
+@Entity(name = "order_items")
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long basketItemId;
+    private Long orderItem_id;
 
     @ManyToOne
-    @JoinColumn(name = "basket_id")
-    private Basket basket;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    public Product product;
+    private Product product;
 
     private int quantity;
 
+    private double unit_price;
+
     private LocalDateTime dateAdded;
-    private boolean addedToOrder = true;
     @PrePersist
     public void init() {
         dateAdded = LocalDateTime.now();

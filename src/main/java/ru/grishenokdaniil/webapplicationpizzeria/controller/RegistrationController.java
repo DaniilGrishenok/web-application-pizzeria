@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+
 @Controller
 @RequiredArgsConstructor
 public class RegistrationController {
@@ -40,10 +41,7 @@ public class RegistrationController {
         return "registration";
     }
 
-    @GetMapping("/userAccount")
-    public String Account(){
-        return "userAccount";
-    }
+
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
@@ -83,6 +81,7 @@ public class RegistrationController {
         if(!userService.createAdmin(user)){
             model.addAttribute("error message", "Пользователь с email: "+
                     user.getEmail() + " уже существует! ");
+            
             return "registrationAdmin";
         }
 

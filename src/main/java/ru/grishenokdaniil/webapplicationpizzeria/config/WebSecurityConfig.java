@@ -25,12 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .and()
                 .authorizeRequests()
+                .antMatchers("/order/create").authenticated()
                 .antMatchers("/", "/index", "/registration", "/debug", "/registrationAdmin").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN") // Разрешить доступ к /admin/** только администраторам
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

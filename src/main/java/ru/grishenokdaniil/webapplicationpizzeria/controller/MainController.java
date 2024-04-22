@@ -1,4 +1,5 @@
 package ru.grishenokdaniil.webapplicationpizzeria.controller;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -15,8 +16,10 @@ import ru.grishenokdaniil.webapplicationpizzeria.repository.BasketRepository;
 import ru.grishenokdaniil.webapplicationpizzeria.repository.ProductRepository;
 import ru.grishenokdaniil.webapplicationpizzeria.repository.UserRepository;
 import ru.grishenokdaniil.webapplicationpizzeria.service.ProductService;
+
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,14 +33,14 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        List<Product> products = (List<Product>) productService.getAllProducts();
+        List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
         return "index";
     }
+
     @PostMapping("/basket/add/{productID}")
     public ResponseEntity<String> addToCart(@PathVariable Long productID, Principal principal) {
         try {
-
             String username = principal.getName();
             User user = userRepository.findByEmail(username);
 
@@ -47,11 +50,9 @@ public class MainController {
                 return ResponseEntity.badRequest().body("Invalid product ID");
             }
 
-            Basket basket = basketRepository.findByUserId(user.getId());
-            if (basket == null) {
-                basket = new Basket();
-                basket.setUser(user);
-            }
+            Optional<Basket> optionalBasket = basketRepository.findByUserId(user.getId());
+            Basket basket = optionalBasket.orElseGet(Basket::new);
+            basket.setUser(user);
 
             basket.addItem(product);
             basketRepository.save(basket);
@@ -62,8 +63,4 @@ public class MainController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding product to cart");
         }
     }
-
-
-
-
 }

@@ -13,7 +13,6 @@ import java.util.Optional;
 @Data
 @Entity(name = "baskets")
 public class Basket {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long basketId;
@@ -24,7 +23,6 @@ public class Basket {
 
     @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BasketItem> basketItems = new ArrayList<>();
-
     private LocalDateTime dateOfCreated;
 
     @PrePersist
@@ -68,4 +66,10 @@ public class Basket {
             }
         });
     }
+    //    <p>Дата создания: <span th:text="${order.name}"></span></p>
+    //                    <p>Дата создания: <span th:text="${order.name}"></span></p>
+    //                    <p>Дата создания: <span th:text="${order.name}"></span></p>
+    //                    <p>Дата создания: <span th:text="${order.name}"></span></p>
+    //                    <p>Дата создания: <span th:text="${order.name}"></span></p>
+    //                    <p>Дата создания: <span th:text="${order.name}"></span></p>
 }

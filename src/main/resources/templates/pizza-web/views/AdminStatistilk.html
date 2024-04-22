@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Order Reports</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px 10px 0 0;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-12">
+    <h1>Admin Panel - Order Reports</h1>
+    <hr>
+    <div class="card">
+        <div class="card-header">
+            Generate Order Report
+        </div>
+        <div class="card-body">
+            <p>Here you can generate reports for orders.</p>
+            <!-- Кнопка для генерации отчета -->
+            <button type="button" class="btn btn-primary">Generate Report</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Обработчик кнопки "Generate Report"
+        $(".btn-primary").click(function() {
+            // Дополнительные действия при генерации отчета
+            // ...
+            // Ваш код для генерации отчета здесь
+            alert("Order report generated successfully!");
+        });
+    });
+</script>
+</body>
+</html>

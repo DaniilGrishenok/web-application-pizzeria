@@ -1,7 +1,7 @@
 package ru.grishenokdaniil.webapplicationpizzeria.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.Basket;
 import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.BasketItem;
@@ -20,7 +20,7 @@ public class ProductService {
 
 
     public List<Product> getAllProducts() {
-        return (List<Product>) productRepository.findAll();
+        return  productRepository.findAll();
     }
 
     public Optional<Product> getProductById(Long id) {
