@@ -35,11 +35,11 @@ public class AdminOrderController {
         orderService.editOrder(id, orderStatus);
         return "redirect:/admin/ordersPanel";
     }
-    @GetMapping("/admin/viewOrder/{id}")
-    public String viewOrder(@PathVariable Long id,  Model model){
-        Optional<Order> orderOptional= orderService.getOrderById(id);
+    @PostMapping("/admin/viewOrder/{id}")
+    public String viewOrder(@PathVariable Long id, Model model) {
+        Optional<Order> orderOptional = orderService.getOrderById(id);
         orderOptional.ifPresent(order -> model.addAttribute("order", order));
-        return "viewOrder";
+        return "redirect:/admin/ordersPanel"; // Это имя шаблона (viewOrder.html)
     }
 
 }
