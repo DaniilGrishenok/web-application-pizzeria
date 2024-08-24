@@ -27,10 +27,10 @@ import java.util.Optional;
 public class MainController {
 
     private final ProductService productService;
+
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final BasketRepository basketRepository;
-
     @GetMapping("/")
     public String home(Model model) {
         List<Product> products = productService.getAllProducts();

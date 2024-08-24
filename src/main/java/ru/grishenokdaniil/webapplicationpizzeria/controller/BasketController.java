@@ -51,12 +51,10 @@ public class BasketController {
         User user = userRepository.findByEmail(username);
 
         Optional<Basket> basket = user != null ? basketRepository.findByUserId(user.getId()) : Optional.empty();
-
         basket.ifPresent(b -> {
             b.removeProductById(productId);
             basketRepository.save(b);
         });
-
         return "redirect:/basket";
     }
 }

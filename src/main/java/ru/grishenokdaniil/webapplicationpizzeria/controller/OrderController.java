@@ -1,6 +1,7 @@
 package ru.grishenokdaniil.webapplicationpizzeria.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +56,7 @@ public class OrderController {
                               @RequestParam("house") String house,
                               @RequestParam("flat") String flat,
                               @RequestParam("CommentForCourier") String commentForCourier,
-                              Principal principal) {
+                              @NotNull Principal principal) {
         String username = principal.getName();
         User user = userRepository.findByEmail(username);
 
@@ -83,8 +84,7 @@ public class OrderController {
                 }
                 orderRepository.save(order);
                 basketRepository.delete(basket);
-
-                return "redirect:/order/paymentPage";
+                return "redirect:/order/paymentPage?orderId=" + order.getId();
             }
         }
         return "error";
@@ -93,7 +93,14 @@ public class OrderController {
 
 
     @GetMapping("/order/paymentPage")
-    public String paymentPage(){
-        return "paymentPage";
+    public String paymentPage(@RequestParam Long orderId, Model model){
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if(order != null){
+            model.addAttribute("order", order);
+            return "paymentPage";
+        } else {
+
+            return "error";
+        }
     }
 }

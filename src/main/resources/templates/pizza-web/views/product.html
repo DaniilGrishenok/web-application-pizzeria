@@ -17,6 +17,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            overflow-x: hidden; /* Скрыть горизонтальную прокрутку */
         }
 
         h2 {
@@ -33,9 +34,12 @@
         }
 
         table {
-            width: 100%;
+            max-width: 100%;
+            overflow-x: auto; /* Добавляет горизонтальную прокрутку, если содержимое таблицы не помещается */
             border-collapse: collapse;
             margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
         }
 
         td.description {
@@ -60,7 +64,7 @@
         }
         .sidebar {
             height: 100%;
-            width: 200px; /* Ширина боковой панели */
+            width: 12%; /* Ширина боковой панели */
             position: fixed; /* Фиксированное позиционирование */
             top: 0;
             left: 0;
@@ -101,7 +105,8 @@
             <a class="nav-link" href="/admin/ordersPanel">Заказы</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Отчеты</a>
+            <a class="nav-link" href="/admin/stats">Отчеты</a>
+
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/admin/product">Товары</a>

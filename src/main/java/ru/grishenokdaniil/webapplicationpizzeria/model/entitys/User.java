@@ -28,11 +28,11 @@
 
         @Column(unique = true)
         private String numberPhone;
-        @Column(nullable = true)
+        @Column(nullable = false)
         private String name;
-        @Column(nullable = true)
+        @Column(nullable = false)
         private String surname;
-        @Column(nullable = true)
+        @Column(nullable = false)
         private String patronymic;
 
         private boolean active;
@@ -45,9 +45,9 @@
                 joinColumns = @JoinColumn(name = "user_id"))
         @Enumerated(EnumType.STRING)
         private Set<Role> roles = new HashSet<>();
-        @Column(nullable = true)
+        @Column(nullable = false)
         private Long bonusBalance;
-        @Column(nullable = true)
+        @Column(nullable = false)
         private LocalDateTime dateOfCreated;
 
         private boolean isVerifiedMail;

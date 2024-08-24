@@ -25,9 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    @Autowired
-    private UserRepository userRepository;
-
     private final UserService userService;
 
     @GetMapping("/login")

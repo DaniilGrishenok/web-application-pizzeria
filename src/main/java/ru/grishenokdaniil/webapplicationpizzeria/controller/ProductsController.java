@@ -57,8 +57,7 @@ public class ProductsController {
     }
     @PostMapping("/admin/product")
     public String addProduct(@ModelAttribute Product product,
-                             @RequestParam("productImage") MultipartFile productImage,
-                             Model model) throws IOException {
+                             @RequestParam("productImage") MultipartFile productImage) {
         if (!productImage.isEmpty()) {
             String imageUrl = imageService.upload(productImage);
             product.setImageUrl(imageUrl);

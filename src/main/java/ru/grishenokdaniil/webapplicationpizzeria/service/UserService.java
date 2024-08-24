@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.grishenokdaniil.webapplicationpizzeria.model.enams.Role;
 import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.User;
 import ru.grishenokdaniil.webapplicationpizzeria.repository.UserRepository;
@@ -15,6 +16,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    @Transactional
     public boolean createUser(User user){
         String email = user.getEmail();
         if(userRepository.findByEmail(user.getEmail())!= null ){
@@ -28,6 +30,7 @@ public class UserService {
 
         return true;
     }
+    @Transactional
     public boolean createAdmin(User user){
         String email = user.getEmail();
         if(userRepository.findByEmail(user.getEmail())!= null ){

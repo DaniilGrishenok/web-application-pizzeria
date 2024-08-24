@@ -13,17 +13,13 @@ public class BasketItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long basketItemId;
-
     @ManyToOne
     @JoinColumn(name = "basket_id")
     private Basket basket;
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     public Product product;
-
     private int quantity;
-
     private LocalDateTime dateAdded;
     private boolean addedToOrder = true;
     @PrePersist

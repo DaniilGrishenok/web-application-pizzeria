@@ -23,14 +23,10 @@ public class ImageService {
     private String uploadFile(File file, String fileName) throws IOException {
         BlobId blobId = BlobId.of("pizzawebapp-267bb.appspot.com", fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
-
-        // Путь к файлу с ключом сервисного аккаунта Firebase
-        InputStream inputStream = ImageService.class.getClassLoader().getResourceAsStream("pizzawebapp-267bb-firebase-adminsdk-oi1n5-45cc57fdff.json");
+        InputStream inputStream = ImageService.class.getClassLoader().getResourceAsStream("ok.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream);
-
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
-
         String DOWNLOAD_URL = "https://firebasestorage.googleapis.com/v0/b/pizzawebapp-267bb.appspot.com/o/%s?alt=media";
         return String.format(DOWNLOAD_URL, URLEncoder.encode(fileName, StandardCharsets.UTF_8));
     }
@@ -39,7 +35,6 @@ public class ImageService {
         File tempFile = new File(fileName);
         try (FileOutputStream fos = new FileOutputStream(tempFile)) {
             fos.write(multipartFile.getBytes());
-            fos.close();
         }
         return tempFile;
     }

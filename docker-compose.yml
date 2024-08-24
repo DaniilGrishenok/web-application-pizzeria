@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: ppostgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: PizzaDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    ports:
+      - "5432:5432"
+    volumes:
+      - pizza_postgres_data:/var/lib/postgresql/data
+
+  pizza-app:
+    image: daniilgrishenok/my-pizzeria-app:latest
+    container_name: web-application-pizzeria_container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/PizzaDB
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 12345
+    volumes:
+      - ./src/main/resources:/app/src/main/resources
+
+volumes:
+  pizza_postgres_data:

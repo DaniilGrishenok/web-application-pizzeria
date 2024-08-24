@@ -14,7 +14,7 @@ import java.util.List;
 @Entity(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "order_id")
     private Long id;
 
@@ -41,7 +41,7 @@ public class Order {
     @PrePersist
     private void init() {
         dateOfCreate = LocalDateTime.now();
-        status = OrderStatus.AwaitingPayment;
+        status = OrderStatus.AWAITING_PAYMENT;
     }
 
     public void addItem(BasketItem basketItem) {

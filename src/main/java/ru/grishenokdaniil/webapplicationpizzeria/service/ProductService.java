@@ -3,6 +3,7 @@ package ru.grishenokdaniil.webapplicationpizzeria.service;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.Basket;
 import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.BasketItem;
 import ru.grishenokdaniil.webapplicationpizzeria.model.entitys.Product;
@@ -18,15 +19,15 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final BasketRepository basketRepository;
 
-
+    @Transactional
     public List<Product> getAllProducts() {
         return  productRepository.findAll();
     }
-
+    @Transactional
     public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
     }
-
+    @Transactional
     public void updateProduct(Long id, Product updatedProduct) {
         Optional<Product> existingProductOptional = productRepository.findById(id);
 
@@ -38,7 +39,7 @@ public class ProductService {
             productRepository.save(existingProduct);
         });
     }
-
+    @Transactional
     public void deleteProduct(Long productId) {
         Product product = productRepository.findById(productId).orElse(null);
         if (product != null) {
